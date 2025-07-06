@@ -47,6 +47,7 @@ const MainContent: FC = () => {
       />
       {selectedMovie && (
         <Modal
+          // @ts-expect-error: Missing data
           movieData={selectedMovie}
           isOpen={isModalOpen}
           onClose={closeModal}

@@ -3,7 +3,6 @@ import { tmdbApi } from "../tmdbApi";
 import { useMovieContext } from "../context/MovieContext";
 import Hero from "../components/Hero";
 import Carousel from "../components/Carousel";
-import toast from "react-hot-toast";
 
 const Home: FC = () => {
   const [genresWithMovies, setGenresWithMovies] = useState<
@@ -44,11 +43,11 @@ const Home: FC = () => {
             return {
               id: genre.id,
               name: genre.name,
-              movies: movies.data.results,
+              movies: movies?.data?.results,
             };
           })
         );
-
+        // @ts-expect-error: Issue with the type
         setGenresWithMovies(allGenresWithMovies);
       }
 

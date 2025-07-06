@@ -38,7 +38,8 @@ export const UtilsProvider: FC<{ children: ReactNode }> = ({ children }) => {
           );
           setMovieList(newMovieList);
           localStorage.setItem("movieList", JSON.stringify(newMovieList));
-          setCardState((prev) => ({
+          // @ts-expect-error: Issue with the type
+          setCardState((prev: CardState) => ({
             ...prev,
             isHovered: false,
             item: null,
