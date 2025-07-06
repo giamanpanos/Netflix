@@ -26,6 +26,7 @@ const SimilarMoviesCard: FC<SimilarMoviesCardProps> = ({
   const [imageSrc] = useState<string>(imageUrl);
 
   const handlePlay = async () => {
+    // @ts-expect-error: Issue with the type
     const trailerRes = await tmdbApi.getMovieTrailer(parseInt(id));
 
     if (trailerRes.error) {
