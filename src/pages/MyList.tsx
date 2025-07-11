@@ -8,7 +8,7 @@ const MyList: FC = () => {
   useEffect(() => {}, [movieList]);
 
   return (
-    <div className="absolute top-36 flex flex-wrap px-12 justify-around gap-4">
+    <div className="absolute top-36 flex flex-wrap px-12 pb-32 justify-around gap-4">
       {movieList.length > 0 ? (
         movieList.map((movie, index) => <Card item={movie} key={index} />)
       ) : (

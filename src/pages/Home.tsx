@@ -89,7 +89,7 @@ const Home: FC = () => {
   return (
     <div>
       <Hero />
-      <div className="absolute w-full top-[31vh] i-pad:top-[37.5vh] i-pad-mini:top-[42.5vh] md:top-[65vh] lg:top-[85vh] pl-10 flex flex-col space-y-4">
+      <div className="absolute w-full top-[31vh] i-pad:top-[37.5vh] i-pad-mini:top-[42.5vh] md:top-[65vh] lg:top-[85vh] pl-10 pb-32 flex flex-col space-y-4">
         {popularMovies && (
           <Carousel title="Popular Movies" items={popularMovies} />
         )}

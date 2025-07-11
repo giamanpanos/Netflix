@@ -12,6 +12,9 @@ import PopUpCard from "./components/PopUpCard";
 import { UtilsProvider } from "./context/UtilsContext";
 import Modal from "./components/Modal";
 import { Toaster } from "react-hot-toast";
+import PopularMovies from "./pages/PopularMovies";
+import NewMovies from "./pages/NewMovies";
+import TrendingMovies from "./pages/TrendingMovies";
 
 const App: FC = () => {
   return (
@@ -55,6 +58,9 @@ const MainContent: FC = () => {
       )}
       <Routes>
         <Route path="/" element={<Home />}></Route>
+        <Route path="/newMovies" element={<NewMovies />}></Route>
+        <Route path="/popularMovies" element={<PopularMovies />}></Route>
+        <Route path="/trendingMovies" element={<TrendingMovies />}></Route>
         <Route path="/watch/:id" element={<Watch />}></Route>
         <Route path="/myList" element={<MyList />}></Route>
         <Route path="/search/:query" element={<Search />}></Route>

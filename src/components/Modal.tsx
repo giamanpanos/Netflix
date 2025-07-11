@@ -13,6 +13,7 @@ import VideoPlayer from "./VideoPlayer";
 import { tmdbApi } from "../tmdbApi";
 import SimilarMoviesCard from "./SimilarMoviesCard";
 import { useNavigate } from "react-router-dom";
+import { useCardContext } from "../context/CardContext";
 
 interface ModalProps {
   isOpen: boolean;
@@ -97,7 +98,9 @@ const Modal: FC<ModalProps> = ({ isOpen, onClose, movieData }) => {
                     className="flex text-2xl items-center gap-2 bg-white text-black p-2 px-4 md:px-12 py-2 rounded-md hover:bg-gray-200 transition-all"
                     onClick={() => {
                       navigate(`/watch/${videoId}`);
-                      onClose();
+                      setTimeout(() => {
+                        onClose();
+                      }, 1);
                     }}
                   >
                     <Play size={20} />

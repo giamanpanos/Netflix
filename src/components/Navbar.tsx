@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type FC } from "react";
 import logo from "../assets/Netflix-LOGO.png";
 import profile from "../assets/profile.jpg";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Bell, ChevronRight, Menu, Search, X } from "lucide-react";
 
 const Navbar: FC = () => {
@@ -12,6 +12,8 @@ const Navbar: FC = () => {
 
   const mainInputRef = useRef<HTMLInputElement>(null);
   const mobileInputRef = useRef<HTMLInputElement>(null);
+
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -64,24 +66,53 @@ const Navbar: FC = () => {
           </Link>
           {/* Navigation */}
           <nav className="hidden text-sm lg:flex space-x-4">
-            <Link to="/" className="hover:text-gray-30">
+            <Link
+              to="/"
+              className={`hover:text-gray-300 ${
+                location.pathname === "/" && "text-white font-bold"
+              }`}
+            >
               Home
             </Link>
-            <Link to="/" className="hover:text-gray-30">
-              TV Shows
+            <Link
+              to="/newMovies"
+              className={`hover:text-gray-300 ${
+                location.pathname.startsWith("/newMovies") &&
+                "text-white font-bold"
+              }`}
+            >
+              New Movies
             </Link>
-            <Link to="/" className="hover:text-gray-30">
-              Movies
+            <Link
+              to="/popularMovies"
+              className={`hover:text-gray-300 ${
+                location.pathname.startsWith("/popularMovies") &&
+                "text-white font-bold"
+              }`}
+            >
+              Popular Movies
             </Link>
-            <Link to="/" className="hover:text-gray-30">
-              New & Popular
+            <Link
+              to="/trendingMovies"
+              className={`hover:text-gray-300 ${
+                location.pathname.startsWith("/trendingMovies") &&
+                "text-white font-bold"
+              }`}
+            >
+              Trending Movies
             </Link>
-            <Link to="/myList" className="hover:text-gray-30">
+            <Link
+              to="/myList"
+              className={`hover:text-gray-300 ${
+                location.pathname.startsWith("/myList") &&
+                "text-white font-bold"
+              }`}
+            >
               My List
             </Link>
-            <Link to="/" className="hover:text-gray-30">
+            {/* <Link to="/" className="hover:text-gray-300">
               Browse By Languages
-            </Link>
+            </Link> */}
           </nav>
         </div>
 
@@ -153,7 +184,7 @@ const Navbar: FC = () => {
           <X color="white" size={24} />
         </button>
 
-        <nav className="flex flex-col space-y-2 mt-4">
+        <nav className="flex flex-col space-y-2 mt-4 items-center">
           <div
             className={`relative flex transition-all duration-300 ${
               isSearchActive ? "" : "w-auto"
@@ -189,24 +220,58 @@ const Navbar: FC = () => {
             />
           </div>
 
-          <Link to="/" className="hover:text-gray-300">
+          <Link
+            to="/"
+            className={`hover:text-gray-300 ${
+              location.pathname === "/" && "text-white font-bold"
+            }`}
+          >
             Home
-          </Link>
-          <Link to="/" className="hover:text-gray-300">
-            TV Shows
-          </Link>
-          <Link to="/" className="hover:text-gray-300">
-            Movies
-          </Link>
-          <Link to="/" className="hover:text-gray-300">
-            New & Popular
           </Link>
           <button
             onClick={() => {
-              navigate("/MyList");
+              navigate("/newMovies");
               setIsMenuOpen(false);
             }}
-            className="hover:text-gray-300 text-left"
+            className={`hover:text-gray-300 ${
+              location.pathname.startsWith("/newMovies") &&
+              "text-white font-bold"
+            }`}
+          >
+            New Movies
+          </button>
+          <button
+            onClick={() => {
+              navigate("/popularMovies");
+              setIsMenuOpen(false);
+            }}
+            className={`hover:text-gray-300 ${
+              location.pathname.startsWith("/popularMovies") &&
+              "text-white font-bold"
+            }`}
+          >
+            Popular Movies
+          </button>
+          <button
+            onClick={() => {
+              navigate("/trendingMovies");
+              setIsMenuOpen(false);
+            }}
+            className={`hover:text-gray-300 ${
+              location.pathname.startsWith("/trendingMovies") &&
+              "text-white font-bold"
+            }`}
+          >
+            Trending Movies
+          </button>
+          <button
+            onClick={() => {
+              navigate("/myList");
+              setIsMenuOpen(false);
+            }}
+            className={`hover:text-gray-300 ${
+              location.pathname.startsWith("/myList") && "text-white font-bold"
+            }`}
           >
             My List
           </button>

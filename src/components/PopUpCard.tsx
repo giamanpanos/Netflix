@@ -180,7 +180,16 @@ const PopUpCard: FC<PopUpCardProps> = ({ isHovered, x, y }) => {
       </div>
 
       <div className="flex justify-between items-center p-4">
-        <div className="flex space-x-2">
+        <div
+          className="flex space-x-2"
+          onClick={() =>
+            // @ts-expect-error: Issue with the type
+            setCardState((prev: CardState) => ({
+              ...prev,
+              isHovered: false,
+            }))
+          }
+        >
           <Link
             to={`/watch/${trailerUrl}`}
             className="rounded-full transition-colors duration-200 p-3 border-2 border-gray-700 hover:border-white"
@@ -227,11 +236,11 @@ const PopUpCard: FC<PopUpCardProps> = ({ isHovered, x, y }) => {
       <div className="p-4">
         <div className="flex gap-3">
           <span className="text-green-400">70% Match</span>
-          <span className="border-2 border-gray-600 rounded-sm text-sm">
+          <span className="border-2 border-gray-600 px-2 rounded-sm text-sm">
             13+
           </span>
           <span className="font-bold">21m</span>
-          <span className="border-2 border-gray-600 rounded-sm text-sm">
+          <span className="border-2 border-gray-600 px-2 rounded-sm text-sm">
             4K
           </span>
         </div>
