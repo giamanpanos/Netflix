@@ -24,7 +24,7 @@ interface PopUpCardProps {
 const PopUpCard: FC<PopUpCardProps> = ({ isHovered, x, y }) => {
   const { setIsModalOpen, setSelectedMovie } = useMovieContext();
   const { cardState, setCardState } = useCardContext();
-  const { addToFavoriteList } = useUtilsContext();
+  const { addToFavoriteList, addToMovieLikesList } = useUtilsContext();
 
   const [title, setTitle] = useState<string>("MOVIE");
   const [muted, setMuted] = useState<boolean>(false);
@@ -35,6 +35,7 @@ const PopUpCard: FC<PopUpCardProps> = ({ isHovered, x, y }) => {
   const [movieId, setMovieId] = useState<number>(0);
   const [favData, setFavData] = useState<Movie | null>(null);
   const [addedToFavorite, setAddedToFavorite] = useState<boolean>(false);
+  const [addedToLikesList, setAddedToLikesList] = useState<boolean>(false);
 
   const handlePopOverMouseLeave = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -108,6 +109,14 @@ const PopUpCard: FC<PopUpCardProps> = ({ isHovered, x, y }) => {
 
       setAddedToFavorite(
         list.some((item: Movie) => item.id === cardState?.item?.id)
+      );
+
+      let likesList = JSON.parse(
+        localStorage.getItem("movieLikesList") || "[]"
+      );
+
+      setAddedToLikesList(
+        likesList.some((item: Movie) => item.id === cardState?.item?.id)
       );
 
       const fetchTrailer = async () => {
@@ -211,8 +220,19 @@ const PopUpCard: FC<PopUpCardProps> = ({ isHovered, x, y }) => {
             )}
           </button>
 
-          <button className="rounded-full transition-colors duration-200 p-3 border-2 border-gray-700 hover:border-white">
-            <ThumbsUp size={20} className="h-6 w-6" />
+          <button
+            className="rounded-full transition-colors duration-200 p-3 border-2 border-gray-700 hover:border-white"
+            onClick={() => {
+              addToMovieLikesList(favData as Movie);
+              setAddedToLikesList(!addedToLikesList);
+            }}
+          >
+            <ThumbsUp
+              size={20}
+              className={`h-6 w-6 ${
+                addedToLikesList ? "text-blue-200" : "hover:text-white"
+              }`}
+            />
           </button>
         </div>
         <button

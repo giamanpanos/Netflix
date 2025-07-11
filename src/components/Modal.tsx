@@ -13,7 +13,6 @@ import VideoPlayer from "./VideoPlayer";
 import { tmdbApi } from "../tmdbApi";
 import SimilarMoviesCard from "./SimilarMoviesCard";
 import { useNavigate } from "react-router-dom";
-import { useCardContext } from "../context/CardContext";
 
 interface ModalProps {
   isOpen: boolean;
@@ -22,10 +21,12 @@ interface ModalProps {
 }
 
 const Modal: FC<ModalProps> = ({ isOpen, onClose, movieData }) => {
-  const { addToFavoriteList, randomDuration } = useUtilsContext();
+  const { addToFavoriteList, randomDuration, addToMovieLikesList } =
+    useUtilsContext();
   const [muted, setMuted] = useState<boolean>(true);
   const [videoId, setVideoId] = useState<string>("");
   const [addedToFavorite, setAddedToFavorite] = useState<boolean>(false);
+  const [addedToLikesList, setAddedToLikesList] = useState<boolean>(false);
   const [movieDetails, setMovieDetails] = useState<MovieDetails | null>(null);
   const [similarMovies, setSimilarMovies] = useState<Movie[]>([]);
   const [loadingSimilarMovies, setLoadingSimilarMovies] =
@@ -36,6 +37,11 @@ const Modal: FC<ModalProps> = ({ isOpen, onClose, movieData }) => {
   useEffect(() => {
     let list = JSON.parse(localStorage.getItem("movieList") || "[]");
     setAddedToFavorite(list.some((item: Movie) => item.id === movieData.id));
+
+    let likesList = JSON.parse(localStorage.getItem("movieLikesList") || "[]");
+    setAddedToLikesList(
+      likesList.some((item: Movie) => item.id === movieData.id)
+    );
 
     const fetchData = async () => {
       setLoadingSimilarMovies(true);
@@ -121,8 +127,18 @@ const Modal: FC<ModalProps> = ({ isOpen, onClose, movieData }) => {
                     )}
                   </button>
 
-                  <button className="rounded-full p-2 md:p-4 border-2 border-gray-700 hover:border-white transition">
-                    <ThumbsUp className="text-white h-6 w-6" />
+                  <button
+                    className="rounded-full p-2 md:p-4 border-2 border-gray-700 hover:border-white transition"
+                    onClick={() => {
+                      addToMovieLikesList(movieData);
+                      setAddedToLikesList(!addedToLikesList);
+                    }}
+                  >
+                    <ThumbsUp
+                      className={`h-6 w-6 ${
+                        addedToLikesList ? "text-blue-200" : "hover:text-white"
+                      }`}
+                    />
                   </button>
                 </div>
 
