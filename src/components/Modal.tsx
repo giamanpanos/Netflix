@@ -136,7 +136,7 @@ const Modal: FC<ModalProps> = ({ isOpen, onClose, movieData }) => {
                   >
                     <ThumbsUp
                       className={`h-6 w-6 ${
-                        addedToLikesList ? "text-blue-200" : "hover:text-white"
+                        addedToLikesList ? "text-blue-300" : "hover:text-white"
                       }`}
                     />
                   </button>

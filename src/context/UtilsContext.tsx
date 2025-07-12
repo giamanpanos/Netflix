@@ -69,11 +69,11 @@ export const UtilsProvider: FC<{ children: ReactNode }> = ({ children }) => {
   };
 
   const addToMovieLikesList = (movie: Movie) => {
-    let Likeslist = localStorage.getItem("movieLikesList");
+    let likesList = localStorage.getItem("movieLikesList");
 
-    if (Likeslist) {
+    if (likesList) {
       try {
-        const parsedList = JSON.parse(Likeslist) as Movie[];
+        const parsedList = JSON.parse(likesList) as Movie[];
         setMovieLikesList(parsedList);
 
         const exists = parsedList.some((item: Movie) => item.id === movie.id);
@@ -82,7 +82,7 @@ export const UtilsProvider: FC<{ children: ReactNode }> = ({ children }) => {
           const newMovieLikesList = parsedList.filter(
             (item: Movie) => item.id !== movie.id
           );
-          setMovieList(newMovieLikesList);
+          setMovieLikesList(newMovieLikesList);
           localStorage.setItem(
             "movieLikesList",
             JSON.stringify(newMovieLikesList)
@@ -97,13 +97,13 @@ export const UtilsProvider: FC<{ children: ReactNode }> = ({ children }) => {
           return;
         }
       } catch (error) {
-        localStorage.removeItem("newMovieLikesList");
+        localStorage.removeItem("movieLikesList");
         setMovieLikesList([]);
       }
     }
 
     const newMovieLikesList = [...movieLikesList, movie];
-    setMovieList(newMovieLikesList);
+    setMovieLikesList(newMovieLikesList);
 
     try {
       localStorage.setItem("movieLikesList", JSON.stringify(newMovieLikesList));
